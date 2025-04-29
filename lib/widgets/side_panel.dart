@@ -1,5 +1,8 @@
 //packages
 
+import 'package:codex/widgets/side_panel_sections/navigation.dart';
+import 'package:codex/widgets/side_panel_sections/settings.dart';
+import 'package:codex/widgets/side_panel_sections/tools.dart';
 import 'package:flutter/material.dart';
 
 class SidePanel extends StatelessWidget {
@@ -8,7 +11,15 @@ class SidePanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
-    //TODO
+    return Container(
+      width: 200,
+      child: Column(
+        children: [
+          const Navigation(),
+          const Tools(),
+          const Settings(),
+        ],
+      ),
+    );
   }
 }
