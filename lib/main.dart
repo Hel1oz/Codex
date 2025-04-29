@@ -1,12 +1,11 @@
 //packages
 import 'dart:ui';
+import 'package:codex/widgets/main_section.dart';
 import 'package:flutter/material.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 
 //local widgets
 import 'package:codex/widgets/title_bar.dart';
-
-
 
 void main() {
   runApp(const Codex());
@@ -34,10 +33,9 @@ class Codex extends StatelessWidget {
         body: WindowBorder(
           color: Colors.black,
           width: 1,
-          child: Column(children: [const TitleBar()]),
+          child: Column(children: [const TitleBar(), const MainSection()]),
         ),
       ),
     );
   }
 }
-
