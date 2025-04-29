@@ -12,9 +12,9 @@ class SidePanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //double.infinity or crossAxisAlignment of the Row widget?
+    //without the expanded widget wrapping the side panel and main_port_view, double.infinity causes an exception
     return SizedBox(
       width: 200,
-      height: double.infinity,
       child: Column(
         children: [
           const Navigation(),

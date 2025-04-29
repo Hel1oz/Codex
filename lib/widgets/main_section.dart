@@ -14,6 +14,9 @@ class MainSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //is expanded necessary here?
-    return Row(children: [const SidePanel(), const MainViewPort()],);
+    return Expanded( //This expanded somehow made the app work by giving constraints
+      child: Row(
+        children: [const SidePanel(), const MainViewPort()],),
+    );
   }
 }
