@@ -13,6 +13,7 @@ class MainSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //is expanded necessary here?
     return Row(children: [const SidePanel(), const MainViewPort()],);
   }
 }

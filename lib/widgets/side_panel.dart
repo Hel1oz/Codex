@@ -11,8 +11,10 @@ class SidePanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    //double.infinity or crossAxisAlignment of the Row widget?
+    return SizedBox(
       width: 200,
+      height: double.infinity,
       child: Column(
         children: [
           const Navigation(),
