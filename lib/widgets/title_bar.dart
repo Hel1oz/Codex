@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class TitleBar extends StatelessWidget {
-  const TitleBar({super.key});
+  TitleBar({super.key});
+
+  final SvgPicture codexLogo = SvgPicture.asset('assets/side_panel/navigation/codex_logo_lightmode.svg');
+
 
   @override
   Widget build(BuildContext context) {
     return WindowTitleBarBox(
       child: MoveWindow(
         child: Row(
-          children: [Expanded(child: Container()), const WindowsButton()],
+          children: [Expanded(child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: codexLogo,
+              ),
+            ],
+          )), const WindowsButton()],
         ),
       ),
     );
