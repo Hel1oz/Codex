@@ -24,17 +24,20 @@ class Navigation extends StatelessWidget {
 
     final SvgPicture addBookIcon = SvgPicture.asset('assets/side_panel/navigation/add_book_icon_lightmode.svg');
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-    
-      children: [
-        ListTile(leading: codexLogo),
-        ListTile(leading: readingIcon, title: Text('Reading')),
-        ListTile(leading: libraryIcon, title: Text('Library')),
-        SizedBox(height: 50),
-        ListTile(leading: addBookIcon, title: Text('Add Book'))
-      ],
+    return SizedBox(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+
+        //TODO: Check out flexible instead of using a sizedbox
+        children: [
+          ListTile(leading: codexLogo),
+          ListTile(leading: readingIcon, title: Text('Reading')),
+          ListTile(leading: libraryIcon, title: Text('Library')),
+          SizedBox(height: 50),
+          ListTile(leading: addBookIcon, title: Text('Add Book'))
+        ],
+      ),
     );
   }
 }
