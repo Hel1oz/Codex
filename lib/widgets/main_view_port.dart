@@ -9,7 +9,7 @@ class MainViewPort extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Expanded(child: Container(color: Colors.blueAccent));
+    return Expanded(child: Container());
   }
 }
 

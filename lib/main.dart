@@ -1,14 +1,19 @@
 //packages
 import 'dart:ui';
+import 'package:codex/models/theme_provider.dart';
 import 'package:codex/widgets/main_section.dart';
 import 'package:flutter/material.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-
+import 'package:provider/provider.dart';
 //local widgets
 import 'package:codex/widgets/title_bar.dart';
 
 void main() {
-  runApp(const Codex());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => ThemeProvider())
+    ],
+    child: const Codex()));
 
   final displaySize =
       PlatformDispatcher.instance.views.first.physicalSize /
@@ -28,6 +33,7 @@ class Codex extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: Provider.of<ThemeProvider>(context).themeData,
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: WindowBorder(
