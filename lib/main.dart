@@ -33,7 +33,7 @@ class Codex extends StatelessWidget {
         body: WindowBorder(
           color: Colors.black,
           width: 1,
-          child: Column(children: [ TitleBar(), const MainSection()]),
+          child: Column(children: [TitleBar(), const MainSection()]),
         ),
       ),
     );

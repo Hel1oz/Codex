@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Navigation extends StatelessWidget {
 
@@ -34,8 +35,10 @@ class Navigation extends StatelessWidget {
         //TODO: Check out flexible instead of using a sizedbox
         children: [
           // ListTile(leading: codexLogo),
-          ListTile(leading: readingIcon, title: Text('Reading')),
-          ListTile(leading: libraryIcon, title: Text('Library')),
+          ListTile(leading: readingIcon, title: Text('Reading', 
+          style: GoogleFonts.fraunces())),
+          ListTile(leading: libraryIcon, title: Text('Library',
+          style: GoogleFonts.pinyonScript())),
           SizedBox(height: 50),
           ListTile(leading: addBookIcon, title: Text('Add Book'))
         ],
