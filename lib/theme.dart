@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-final ButtonFont = GoogleFonts.inter;
+final buttonFont = GoogleFonts.inter;
 
 ThemeData lightMode = ThemeData(
   brightness: Brightness.light,
   colorScheme: ColorScheme.light(
-    surface: Colors.grey.shade400,
-    primary: Colors.grey.shade300,
+    surface: Colors.white,
+    primary: Colors.grey.shade100,
     secondary: Colors.grey.shade200, 
   ),
   textTheme: TextTheme(
-    labelLarge: ButtonFont(
+    labelLarge: buttonFont(
       color: Colors.black,
     )
   ),
@@ -25,7 +25,7 @@ ThemeData darkMode = ThemeData(
     secondary: Colors.grey.shade700,
   ),
   textTheme: TextTheme(
-    labelLarge: ButtonFont(
+    labelLarge: buttonFont(
       color: Colors.white,
     )
   ),
