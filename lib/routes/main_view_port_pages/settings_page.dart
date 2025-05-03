@@ -1,4 +1,5 @@
 //packages
+import 'package:codex/routes/settings_page_pages/apperance_settings.dart';
 import 'package:flutter/material.dart';
 
 
@@ -32,7 +33,7 @@ class SettingsPage extends StatelessWidget {
               )
             )
           ),
-          Expanded(child: Container()),
+          Expanded(child: ApperanceSettings()),
         ],
       )
     ));
