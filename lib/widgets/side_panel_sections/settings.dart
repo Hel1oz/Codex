@@ -13,9 +13,10 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      color: Colors.amber,
-      child: ListTile(leading: settingsButtonLightmode, title: Text('testing'),)
-    );
+
+  final buttonFont = Theme.of(context).textTheme.labelLarge;
+
+    return ListTile(leading: settingsButtonLightmode, title: Text('Settings',
+    style: buttonFont),);
   }
 }

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 class Navigation extends StatelessWidget {
 
@@ -15,7 +15,8 @@ class Navigation extends StatelessWidget {
     final SvgPicture libraryIcon = SvgPicture.asset('assets/side_panel/navigation/library_icon_lightmode.svg');
 
     final SvgPicture addBookIcon = SvgPicture.asset('assets/side_panel/navigation/add_book_icon_lightmode.svg');
-  
+
+ 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -25,7 +26,7 @@ class Navigation extends StatelessWidget {
         just use the title parameter
     */
 
-    
+    final buttonFont = Theme.of(context).textTheme.labelLarge;    
 
     return SizedBox(
       child: Column(
@@ -36,11 +37,12 @@ class Navigation extends StatelessWidget {
         children: [
           // ListTile(leading: codexLogo),
           ListTile(leading: readingIcon, title: Text('Reading', 
-          style: GoogleFonts.fraunces())),
+          style: buttonFont)),
           ListTile(leading: libraryIcon, title: Text('Library',
-          style: GoogleFonts.pinyonScript())),
+          style: buttonFont)),
           SizedBox(height: 50),
-          ListTile(leading: addBookIcon, title: Text('Add Book'))
+          ListTile(leading: addBookIcon, title: Text('Add Book',
+          style: buttonFont))
         ],
       ),
     );
