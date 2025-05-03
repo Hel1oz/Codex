@@ -10,7 +10,31 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Expanded(child: Container(
-      color: Colors.blue
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            width: 150,
+            color: Colors.deepOrange,
+            child: SizedBox(
+              child: ListView(
+                children: [
+                  ListTile(
+                    title: Text('Testing'),
+                  ),
+                  ListTile(
+                    title: Text('Appearance')
+                  ),
+                  ListTile(
+                    title: Text('About Codex')
+                  ),
+                ],
+              )
+            )
+          ),
+          Expanded(child: Container()),
+        ],
+      )
     ));
   }
 }
