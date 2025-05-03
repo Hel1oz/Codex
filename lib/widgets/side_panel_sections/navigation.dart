@@ -37,7 +37,8 @@ class Navigation extends StatelessWidget {
         children: [
           // ListTile(leading: codexLogo),
           ListTile(leading: readingIcon, title: Text('Reading', 
-          style: buttonFont)),
+          style: buttonFont), 
+          onTap: () {},),
           ListTile(leading: libraryIcon, title: Text('Library',
           style: buttonFont)),
           SizedBox(height: 50),

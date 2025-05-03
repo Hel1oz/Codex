@@ -1,5 +1,6 @@
 //packages
 import 'dart:ui';
+import 'package:codex/models/navigation_provider.dart';
 import 'package:codex/models/theme_provider.dart';
 import 'package:codex/widgets/main_section.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,8 @@ import 'package:codex/widgets/title_bar.dart';
 void main() {
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (context) => ThemeProvider())
+      ChangeNotifierProvider(create: (context) => ThemeProvider()),
+      ChangeNotifierProvider(create: (context) => NavProvider()),
     ],
     child: const Codex()));
 
