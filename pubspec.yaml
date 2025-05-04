@@ -64,6 +64,7 @@ flutter:
   assets:
     #codex logo svgs
     - assets/side_panel/navigation/codex_logo_lightmode.svg
+    - assets/side_panel/navigation/codex_logo_darkmode.svg
     #reading icon svgs
     - assets/side_panel/navigation/reading_icon_lightmode.svg
     - assets/side_panel/navigation/reading_icon_darkmode.svg

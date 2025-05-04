@@ -5,11 +5,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 class TitleBar extends StatelessWidget {
   TitleBar({super.key});
 
-  final SvgPicture codexLogo = SvgPicture.asset('assets/side_panel/navigation/codex_logo_lightmode.svg');
-
+  final SvgPicture codexLogoLightMode = SvgPicture.asset('assets/side_panel/navigation/codex_logo_lightmode.svg');
+  final SvgPicture codexLogoDarkMode = SvgPicture.asset('assets/side_panel/navigation/codex_logo_darkmode.svg');
 
   @override
   Widget build(BuildContext context) {
+
+    bool isLightMode = Theme.of(context).colorScheme.brightness == Brightness.light;
+
     return WindowTitleBarBox(
       child: MoveWindow(
         child: Row(
@@ -18,7 +21,7 @@ class TitleBar extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: codexLogo,
+                child: isLightMode ? codexLogoLightMode : codexLogoDarkMode,
               ),
             ],
           )), const WindowsButton()],
