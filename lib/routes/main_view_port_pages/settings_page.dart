@@ -9,7 +9,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Expanded(child: Container(
+    return SizedBox.expand(child: Container(
       color: Colors.blue
     ));
   }
