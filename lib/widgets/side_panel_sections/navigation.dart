@@ -11,16 +11,28 @@ class Navigation extends StatelessWidget {
 
   // final SvgPicture codexLogo = SvgPicture.asset('assets/side_panel/navigation/codex_logo_lightmode.svg');
 
-  final SvgPicture readingIcon = SvgPicture.asset(
+//Reading icons
+  final SvgPicture readingIconDark = SvgPicture.asset(
     'assets/side_panel/navigation/reading_icon_lightmode.svg',
   );
-
-  final SvgPicture libraryIcon = SvgPicture.asset(
-    'assets/side_panel/navigation/library_icon_lightmode.svg',
+  final SvgPicture readingIconLight = SvgPicture.asset(
+    'assets/side_panel/navigation/reading_icon_darkmode.svg',
   );
 
-  final SvgPicture addBookIcon = SvgPicture.asset(
+//Library icons
+  final SvgPicture libraryIconDark = SvgPicture.asset(
+    'assets/side_panel/navigation/library_icon_lightmode.svg',
+  );
+  final SvgPicture libraryIconLight = SvgPicture.asset(
+    'assets/side_panel/navigation/library_icon_darkmode.svg',
+  );
+
+//add book icons
+  final SvgPicture addBookIconDark = SvgPicture.asset(
     'assets/side_panel/navigation/add_book_icon_lightmode.svg',
+  );
+  final SvgPicture addBookIconLight = SvgPicture.asset(
+    'assets/side_panel/navigation/add_book_icon_darkmode.svg',
   );
 
   @override
@@ -32,6 +44,7 @@ class Navigation extends StatelessWidget {
         just use the title parameter
     */
 
+    var isLightMode = Theme.of(context).colorScheme.brightness == Brightness.light;
     final buttonFont = Theme.of(context).textTheme.labelLarge;
 
     return SizedBox(
@@ -43,7 +56,7 @@ class Navigation extends StatelessWidget {
         children: [
           // ListTile(leading: codexLogo),
           ListTile(
-            leading: readingIcon,
+            leading: isLightMode ? readingIconDark : readingIconLight,
             title: Text('Reading', style: buttonFont),
             onTap: () {
               Provider.of<NavProvider>(
@@ -53,7 +66,7 @@ class Navigation extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: libraryIcon,
+            leading: isLightMode ? libraryIconDark : libraryIconLight,
             title: Text('Library', style: buttonFont),
             onTap: () {
               Provider.of<NavProvider>(
@@ -64,7 +77,7 @@ class Navigation extends StatelessWidget {
           ),
           SizedBox(height: 50),
           ListTile(
-            leading: addBookIcon,
+            leading: isLightMode ? addBookIconDark : addBookIconLight,
             title: Text('Add Book', style: buttonFont),
           ),
         ],

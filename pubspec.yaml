@@ -66,14 +66,18 @@ flutter:
     - assets/side_panel/navigation/codex_logo_lightmode.svg
     #reading icon svgs
     - assets/side_panel/navigation/reading_icon_lightmode.svg
+    - assets/side_panel/navigation/reading_icon_darkmode.svg
     #library icon svgs
     - assets/side_panel/navigation/library_icon_lightmode.svg
+    - assets/side_panel/navigation/library_icon_darkmode.svg
     #add book icon svgs
     - assets/side_panel/navigation/add_book_icon_lightmode.svg
+    - assets/side_panel/navigation/add_book_icon_darkmode.svg
 
 
     #settings button icon svgs
     - assets/side_panel/settings/settings_icon_lightmode.svg
+    - assets/side_panel/settings/settings_icon_darkmode.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
