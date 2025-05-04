@@ -9,7 +9,7 @@ class LibraryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Expanded(child: 
+    return SizedBox.expand(child: 
     Container(
       color: Colors.brown
     )
