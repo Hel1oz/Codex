@@ -27,6 +27,10 @@ class Navigation extends StatelessWidget {
     'assets/side_panel/navigation/library_icon_darkmode.svg',
   );
 
+//add book icons
+  final SvgPicture addBookIconLightMode = SvgPicture.asset('assets/side_panel/navigation/add_book_icon_lightmode.svg',);
+  final SvgPicture addBookIconDarkMode = SvgPicture.asset('assets/side_panel/navigation/add_book_icon_darkmode.svg');
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

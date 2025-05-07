@@ -71,7 +71,7 @@ flutter:
     #library icon svgs
     - assets/side_panel/navigation/library_icon_lightmode.svg
     - assets/side_panel/navigation/library_icon_darkmode.svg
-
+    #add book icon svgs
 
     #settings button icon svgs
     - assets/side_panel/settings/settings_icon_lightmode.svg
