@@ -28,12 +28,8 @@ class Navigation extends StatelessWidget {
   );
 
 //add book icons
-  final SvgPicture addBookIconDark = SvgPicture.asset(
-    'assets/side_panel/navigation/add_book_icon_lightmode.svg',
-  );
-  final SvgPicture addBookIconLight = SvgPicture.asset(
-    'assets/side_panel/navigation/add_book_icon_darkmode.svg',
-  );
+  final SvgPicture addBookIconLightMode = SvgPicture.asset('assets/side_panel/navigation/add_book_icon_lightmode.svg',);
+  final SvgPicture addBookIconDarkMode = SvgPicture.asset('assets/side_panel/navigation/add_book_icon_darkmode.svg');
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +73,7 @@ class Navigation extends StatelessWidget {
           ),
           SizedBox(height: 50),
           ListTile(
-            leading: isLightMode ? addBookIconDark : addBookIconLight,
+            leading: isLightMode ? Icon(Icons.add_sharp, color: Colors.black) : Icon(Icons.add_sharp, color: Colors.white),
             title: Text('Add Book', style: buttonFont),
           ),
         ],
