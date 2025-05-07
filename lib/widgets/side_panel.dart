@@ -15,12 +15,15 @@ class SidePanel extends StatelessWidget {
     //without the expanded widget wrapping the side panel and main_port_view, double.infinity causes an exception
     return SizedBox(
       width: 200,
-      child: Column(
-        children: [
-          Navigation(),
-          const Tools(),
-          Settings(),
-        ],
+      child: Container(
+        decoration: BoxDecoration(border: Border(right: BorderSide(color: Theme.of(context).colorScheme.brightness == Brightness.light ? Colors.grey.shade400 : Colors.grey.shade700),)),
+        child: Column(
+          children: [
+            Navigation(),
+            const Tools(),
+            Settings(),
+          ],
+        ),
       ),
     );
   }

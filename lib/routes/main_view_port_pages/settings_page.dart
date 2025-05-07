@@ -15,8 +15,10 @@ class SettingsPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
+            decoration: BoxDecoration(
+              border: Border(right: BorderSide(color: Theme.of(context).colorScheme.brightness == Brightness.light ? Colors.grey.shade400 : Colors.grey.shade700))
+            ),
             width: 150,
-            color: Colors.deepOrange,
             child: SizedBox(
               child: ListView(
                 children: [

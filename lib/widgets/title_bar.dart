@@ -14,17 +14,24 @@ class TitleBar extends StatelessWidget {
     bool isLightMode = Theme.of(context).colorScheme.brightness == Brightness.light;
 
     return WindowTitleBarBox(
-      child: MoveWindow(
-        child: Row(
-          children: [Expanded(child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: isLightMode ? codexLogoLightMode : codexLogoDarkMode,
-              ),
-            ],
-          )), const WindowsButton()],
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(
+            color: isLightMode ? Colors.grey.shade400 : Colors.grey.shade700
+          ))
+        ),
+        child: MoveWindow(
+          child: Row(
+            children: [Expanded(child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: isLightMode ? codexLogoLightMode : codexLogoDarkMode,
+                ),
+              ],
+            )), const WindowsButton()],
+          ),
         ),
       ),
     );
