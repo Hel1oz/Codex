@@ -11,7 +11,6 @@ class ReadingPage extends StatelessWidget {
     // TODO: implement build
       return SizedBox.expand(child: 
       Container(
-        color: Colors.white
       ));
   }
 }
