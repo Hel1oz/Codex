@@ -9,6 +9,12 @@ Map<String, ThemeData> availableThemes = {
   'DarkMode' : darkMode,
 };
 
+enum ThemeModeOption {
+  light, 
+  dark,
+  system,
+}
+
 void saveToDataBase(ThemeData theme) {
   if(theme == lightMode) {
     _themeBox.put('CURRENT_THEME', 'LightMode');

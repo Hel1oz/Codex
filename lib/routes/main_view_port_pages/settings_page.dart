@@ -1,43 +1,69 @@
-//packages
-import 'package:codex/routes/settings_page_pages/apperance_settings.dart';
+import 'package:codex/models/setting_page_model.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatelessWidget {
-
   const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return SizedBox.expand(child: Container(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              border: Border(right: BorderSide(color: Theme.of(context).colorScheme.brightness == Brightness.light ? Colors.grey.shade400 : Colors.grey.shade700))
+    return ChangeNotifierProvider(
+      create: (context) => SettingsPageModel(),
+      child: SizedBox.expand(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  right: BorderSide(
+                    color: Theme.of(context).colorScheme.brightness ==
+                            Brightness.light
+                        ? Colors.grey.shade400
+                        : Colors.grey.shade700,
+                  ),
+                ),
+              ),
+              width: 150,
+              child: Builder(
+                builder: (BuildContext newContext) { // New context inside ChangeNotifierProvider
+                  return ListView(
+                    children: [
+                      ListTile(
+                        title: const Text('Testing'),
+                        onTap: () {},
+                      ),
+                      ListTile(
+                        title: const Text('Appearance'),
+                        onTap: () {
+                          newContext
+                              .read<SettingsPageModel>()
+                              .changeCurrentTab(SettingsTabs.appearanceTab); // Fixed method name
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('About Codex'),
+                        onTap: () {
+                          newContext
+                              .read<SettingsPageModel>()
+                              .changeCurrentTab(SettingsTabs.aboutCodexTab); // Fixed method name
+                        },
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
-            width: 150,
-            child: SizedBox(
-              child: ListView(
-                children: [
-                  ListTile(
-                    title: Text('Testing'),
-                  ),
-                  ListTile(
-                    title: Text('Appearance')
-                  ),
-                  ListTile(
-                    title: Text('About Codex')
-                  ),
-                ],
-              )
-            )
-          ),
-          Expanded(child: ApperanceSettings()),
-        ],
-      )
-    ));
+            Expanded(
+              child: Consumer<SettingsPageModel>(
+                builder: (context, settingsPageModel, child) {
+                  return settingsPageModel.currentTab;
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
