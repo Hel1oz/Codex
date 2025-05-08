@@ -14,7 +14,8 @@ class ReadingPage extends StatelessWidget {
         initialPageNumber: 1,
         params: PdfViewerParams(
           enableTextSelection: true,
-          
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          enableKeyboardNavigation: true,
         ),),
       );
   }
