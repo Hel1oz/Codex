@@ -9,6 +9,7 @@ import 'package:codex/widgets/title_bar.dart';
 import 'package:codex/models/navigation_provider.dart';
 import 'package:codex/models/theme_provider.dart';
 import 'package:codex/widgets/main_section.dart';
+import 'package:codex/theme.dart';
 
 void main() async {
 
@@ -40,7 +41,9 @@ class Codex extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: Provider.of<ThemeProvider>(context).themeData,
+      theme: lightMode,
+      darkTheme: darkMode,
+      themeMode: context.watch<ThemeProvider>().chosenThemeMode,
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: WindowBorder(

@@ -4,44 +4,41 @@ import 'package:hive_ce/hive.dart';
 
 final _themeBox = Hive.box('AppThemeBox');
 
-Map<String, ThemeData> availableThemes = {
-  'LightMode' : lightMode,
-  'DarkMode' : darkMode,
+void saveToDataBase(String theme) {
+  _themeBox.put('CHOSEN_THEME_MODE', theme);
+}
+
+Map<String, ThemeMode> availableThemeModes = {
+  'light' : ThemeMode.light,
+  'dark' : ThemeMode.dark,
+  'system' : ThemeMode.system,
 };
 
-enum ThemeModeOption {
-  light, 
-  dark,
-  system,
-}
-
-void saveToDataBase(ThemeData theme) {
-  if(theme == lightMode) {
-    _themeBox.put('CURRENT_THEME', 'LightMode');
-  } else {
-    _themeBox.put('CURRENT_THEME', 'DarkMode');
-  }
-}
-
 class ThemeProvider with ChangeNotifier {
-  ThemeData _themeData = availableThemes[_themeBox.get('CURRENT_THEME')] ?? lightMode;
 
-  ThemeData get themeData => _themeData;
+  ThemeMode _chosenThemeMode = availableThemeModes[_themeBox.get('CHOSEN_THEME_MODE')] ?? ThemeMode.light;  
 
-  set themeData(ThemeData themeData) {
-    _themeData = themeData;
-    saveToDataBase(themeData);
-    notifyListeners();
-  }
+  ThemeMode get chosenThemeMode => _chosenThemeMode;
 
-  void toggleTheme() {
-    if (_themeData == lightMode) {
-      _themeData = darkMode;
-      saveToDataBase(darkMode);
+  void setThemeMode(ThemeMode themeMode) {
+    if(_chosenThemeMode == themeMode) {
+      return;
     } else {
-      _themeData = lightMode;
-      saveToDataBase(lightMode);
+      switch (themeMode) {
+          case ThemeMode.light:
+          _chosenThemeMode = themeMode;
+          saveToDataBase('light');
+          break;
+          case ThemeMode.dark:
+          _chosenThemeMode = themeMode;
+          saveToDataBase('dark');
+          break;
+          case ThemeMode.system:
+          _chosenThemeMode = themeMode;
+          saveToDataBase('system');
+          break;
+      }
+      notifyListeners();
     }
-    notifyListeners();
   }
 }
