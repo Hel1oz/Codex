@@ -14,11 +14,29 @@ class AppearanceSettingsTab extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        ElevatedButton(onPressed: () {context.read<ThemeProvider>().setThemeMode(ThemeMode.light);}, child: Text('Light')),
-        ElevatedButton(onPressed: () {context.read<ThemeProvider>().setThemeMode(ThemeMode.dark);}, child: Text('Dark')),
-        ElevatedButton(onPressed: () {context.read<ThemeProvider>().setThemeMode(ThemeMode.system);}, child: Text('System')),
+        Card(
+          color: Theme.of(context).colorScheme.primary,
+          child: Column(children: [
+            Text('Theme Mode'),
+            DropdownButton(
+              value: context.watch<ThemeProvider>().chosenThemeMode,
+              items: const [
+              DropdownMenuItem(value: ThemeMode.light, child: Text('Light')),
+              DropdownMenuItem(value: ThemeMode.dark, child: Text('Dark')),
+              DropdownMenuItem(value: ThemeMode.system, child: Text('System')),
+            ], onChanged: (ThemeMode? value) { context.read<ThemeProvider>().setThemeMode(value!);},),
+          ],)
+        ),
       ],
     );
   }
 }
+
+// Todo:
+
+// button selected color implementation
+//     side panel and settings button nav
+// appearance settings tab UI implementation
+// figure out library system
