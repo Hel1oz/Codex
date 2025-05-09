@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:hive_ce_flutter/adapters.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 //local widgets
 import 'package:codex/widgets/title_bar.dart';
@@ -13,7 +14,10 @@ import 'package:codex/theme.dart';
 
 void main() async {
 
-  await Hive.initFlutter();
+  WidgetsFlutterBinding.ensureInitialized(); 
+  final supportDirectory = await getApplicationSupportDirectory();
+  
+  await Hive.initFlutter(supportDirectory.path);
   await Hive.openBox('AppThemeBox');
 
   runApp(MultiProvider(
