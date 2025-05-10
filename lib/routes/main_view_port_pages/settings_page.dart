@@ -17,10 +17,7 @@ class SettingsPage extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border(
                   right: BorderSide(
-                    color: Theme.of(context).colorScheme.brightness ==
-                            Brightness.light
-                        ? Colors.grey.shade400
-                        : Colors.grey.shade700,
+                    color: Theme.of(context).colorScheme.primary
                   ),
                 ),
               ),

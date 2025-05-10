@@ -6,7 +6,6 @@ import 'package:codex/widgets/side_panel_sections/tools.dart';
 import 'package:flutter/material.dart';
 
 class SidePanel extends StatelessWidget {
-  
   const SidePanel({super.key});
 
   @override
@@ -16,14 +15,16 @@ class SidePanel extends StatelessWidget {
     return SizedBox(
       width: 200,
       child: Container(
-        decoration: BoxDecoration(border: Border(right: BorderSide(color: Theme.of(context).colorScheme.brightness == Brightness.light ? Colors.grey.shade400 : Colors.grey.shade700),)),
-        child: Column(
-          children: [
-            Navigation(),
-            const Tools(),
-            Settings(),
-          ],
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          border: Border(
+            right: BorderSide(
+              color:
+                  Theme.of(context).colorScheme.secondary,
+            ),
+          ),
         ),
+        child: Column(children: [Navigation(), const Tools(), Settings()]),
       ),
     );
   }

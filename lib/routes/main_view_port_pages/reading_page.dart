@@ -10,7 +10,7 @@ class ReadingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
       return SizedBox.expand(
-        child: PdfViewer.file('C:/Users/red/temp/Atlas_Shrugged.pdf',
+        child: PdfViewer.file('C:/Users/red/Documents/CodexLibrary/Things hidden since the foundation of the world.pdf',
         initialPageNumber: 1,
         params: PdfViewerParams(
           enableTextSelection: true,

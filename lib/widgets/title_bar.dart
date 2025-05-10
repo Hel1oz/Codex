@@ -16,8 +16,9 @@ class TitleBar extends StatelessWidget {
     return WindowTitleBarBox(
       child: Container(
         decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary,
           border: Border(bottom: BorderSide(
-            color: isLightMode ? Colors.grey.shade400 : Colors.grey.shade700
+            color: Theme.of(context).colorScheme.secondary,
           ))
         ),
         child: MoveWindow(
@@ -39,18 +40,18 @@ class TitleBar extends StatelessWidget {
 }
 
 final buttonColors = WindowButtonColors(
-  iconNormal: const Color(0xFF805306),
-  mouseOver: const Color(0xFFF6A00C),
-  mouseDown: const Color(0xFF805306),
-  iconMouseOver: const Color(0xFF805306),
-  iconMouseDown: const Color(0xFFFFD500),
+  iconNormal: const Color(0xFF000000),
+  mouseOver: const Color(0xFF4595b0),
+  mouseDown: const Color(0xFF363636),
+  iconMouseOver: const Color(0xFF000000),
+  iconMouseDown: const Color(0xFF000000),
 );
 
 final closeButtonColors = WindowButtonColors(
-  mouseOver: const Color(0xFFD32F2F),
-  mouseDown: const Color(0xFFB71C1C),
-  iconNormal: const Color(0xFF805306),
-  iconMouseOver: Colors.white,
+  mouseOver: const Color(0xFFe81123),
+  mouseDown: const Color(0xFF4fa0ba),
+  iconNormal: const Color(0xFF000000),
+  iconMouseOver: const Color(0xFF000000),
 );
 
 class WindowsButton extends StatefulWidget {

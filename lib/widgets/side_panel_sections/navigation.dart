@@ -41,7 +41,6 @@ class Navigation extends StatelessWidget {
     */
 
     var isLightMode = Theme.of(context).colorScheme.brightness == Brightness.light;
-    final buttonFont = Theme.of(context).textTheme.labelLarge;
 
     return SizedBox(
       child: Column(
@@ -53,7 +52,7 @@ class Navigation extends StatelessWidget {
           // ListTile(leading: codexLogo),
           ListTile(
             leading: isLightMode ? readingIconDark : readingIconLight,
-            title: Text('Reading', style: buttonFont),
+            title: Text('Reading', style: Theme.of(context).textTheme.titleSmall),
             onTap: () {
               Provider.of<NavProvider>(
                 context,
@@ -63,7 +62,7 @@ class Navigation extends StatelessWidget {
           ),
           ListTile(
             leading: isLightMode ? libraryIconDark : libraryIconLight,
-            title: Text('Library', style: buttonFont),
+            title: Text('Library', style: Theme.of(context).textTheme.titleSmall),
             onTap: () {
               Provider.of<NavProvider>(
                 context,
@@ -74,7 +73,7 @@ class Navigation extends StatelessWidget {
           SizedBox(height: 50),
           ListTile(
             leading: isLightMode ? Icon(Icons.add_sharp, color: Colors.black) : Icon(Icons.add_sharp, color: Colors.white),
-            title: Text('Add Book', style: buttonFont),
+            title: Text('Add Book', style: Theme.of(context).textTheme.titleSmall),
           ),
         ],
       ),
