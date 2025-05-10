@@ -39,6 +39,7 @@ dependencies:
   hive_ce_flutter: ^2.3.0
   path_provider: ^2.1.5
   file_picker: ^10.1.7
+  markdown_widget: ^2.3.2+8
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   # cupertino_icons: ^1.0.8
@@ -81,6 +82,9 @@ flutter:
     #settings button icon svgs
     - assets/side_panel/settings/settings_icon_lightmode.svg
     - assets/side_panel/settings/settings_icon_darkmode.svg
+
+    - assets/About Codex.md
+    - assets/library.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

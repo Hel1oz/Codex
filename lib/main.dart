@@ -1,6 +1,8 @@
 //packages
 import 'dart:ui';
 import 'package:codex/models/library_model.dart';
+import 'package:codex/models/setting_page_model.dart';
+import 'package:codex/models/side_panel_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:hive_ce_flutter/adapters.dart';
@@ -17,7 +19,6 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized(); 
   final supportDirectory = await getApplicationSupportDirectory();
-  final documentDirectory = await getApplicationDocumentsDirectory();
 
   await Hive.initFlutter(supportDirectory.path);
   await Hive.openBox('AppThemeBox');
@@ -28,6 +29,8 @@ void main() async {
       ChangeNotifierProvider(create: (context) => ThemeProvider()),
       ChangeNotifierProvider(create: (context) => NavProvider()),
       ChangeNotifierProvider(create: (contex) => LibraryModel()),
+      ChangeNotifierProvider(create: (context) => SettingsPageModel()),
+      ChangeNotifierProvider(create: (context) => SidePanelModel()),
     ],
     child: const Codex()));
 

@@ -16,15 +16,13 @@ class MainViewPort extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Expanded(
-      child: Container(
-        child: Consumer<NavProvider>(
-          builder: (context, navProvider, child) {
-            return IndexedStack(
-              index: navProvider.currentPageIndex,
-              children: [ReadingPage(), LibraryPage(), SettingsPage()],
-            );
-          },
-        ),
+      child: Consumer<NavProvider>(
+        builder: (context, navProvider, child) {
+          return IndexedStack(
+            index: navProvider.currentPageIndex,
+            children: [ReadingPage(), LibraryPage(), SettingsPage()],
+          );
+        },
       ),
     );
   }

@@ -12,12 +12,18 @@ ThemeData lightMode = ThemeData(
     tertiary: Color(0xFF4fa0ba), 
   ),
   textTheme: TextTheme(
-    titleSmall: GoogleFonts.inter(
+    titleSmall: GoogleFonts.merriweather(
       color: Colors.black,
       fontWeight: FontWeight.bold,
     ),
+    bodyMedium: GoogleFonts.inter(
+      color: Colors.black
+    ),
     labelLarge: buttonFont(
       color: Colors.black,
+    ),
+    bodySmall: GoogleFonts.merriweather(
+      color: Colors.black
     )
   ),
 );
@@ -27,16 +33,22 @@ ThemeData darkMode = ThemeData(
   colorScheme: ColorScheme.dark(
     surface: Color(0xFF1c1c1c),
     primary: Color(0xFF363636),
-    secondary: Color(0xFF363636),
+    secondary: Color(0xFF5c5c5c),
     tertiary: Color(0xFF4595b0),
   ),
   textTheme: TextTheme(
-    titleSmall: GoogleFonts.inter(
+    titleSmall: GoogleFonts.merriweather(
       color: Colors.white,
       fontWeight: FontWeight.bold,
     ),
-    labelLarge: buttonFont(
-      color: Colors.white,
+    labelLarge: GoogleFonts.merriweather(
+      color: Colors.white
+    ),
+    bodyMedium: GoogleFonts.inter(
+      color: Colors.white
+    ),
+    bodySmall: GoogleFonts.merriweather(
+      color: Colors.white
     )
   ),
 );

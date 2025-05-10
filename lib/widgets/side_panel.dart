@@ -24,7 +24,7 @@ class SidePanel extends StatelessWidget {
             ),
           ),
         ),
-        child: Column(children: [Navigation(), const Tools(), Settings()]),
+        child: Column(children: [Navigation(), Tools(), Settings()]),
       ),
     );
   }

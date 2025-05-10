@@ -1,5 +1,6 @@
 //local imports
 import 'package:codex/models/navigation_provider.dart';
+import 'package:codex/models/side_panel_model.dart';
 
 //packages
 import 'package:flutter/material.dart';
@@ -42,7 +43,9 @@ class Navigation extends StatelessWidget {
 
     var isLightMode = Theme.of(context).colorScheme.brightness == Brightness.light;
 
-    return SizedBox(
+
+    return Container(
+      decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Theme.of(context).colorScheme.secondary))),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,31 +53,41 @@ class Navigation extends StatelessWidget {
         //TODO: Check out flexible instead of using a sizedbox
         children: [
           // ListTile(leading: codexLogo),
-          ListTile(
-            leading: isLightMode ? readingIconDark : readingIconLight,
-            title: Text('Reading', style: Theme.of(context).textTheme.titleSmall),
-            onTap: () {
-              Provider.of<NavProvider>(
-                context,
-                listen: false,
-              ).changePage(Pages.readingPage);
-            },
+          Padding(
+            padding: const EdgeInsets.only(top: 30, bottom: 15),
+            child: Container(
+              color: Theme.of(context).colorScheme.primary,
+              child: ListTile(
+                leading: isLightMode ? readingIconDark : readingIconLight,
+                title: Text('Reading', style: Theme.of(context).textTheme.titleSmall),
+                onTap: () {
+                  Provider.of<NavProvider>(
+                    context,
+                    listen: false,
+                  ).changePage(Pages.readingPage);
+                  context.read<SidePanelModel>().pressButton(NavButtons.reading);
+                },
+              ),
+            ),
           ),
-          ListTile(
-            leading: isLightMode ? libraryIconDark : libraryIconLight,
-            title: Text('Library', style: Theme.of(context).textTheme.titleSmall),
-            onTap: () {
-              Provider.of<NavProvider>(
-                context,
-                listen: false,
-              ).changePage(Pages.libraryPage);
-            },
+          Padding(
+            padding: const EdgeInsets.only(top:0, bottom: 15),
+            child: Container(
+              color: Theme.of(context).colorScheme.primary,
+              child: ListTile(
+                leading: isLightMode ? libraryIconDark : libraryIconLight,
+                title: Text('Library', style: Theme.of(context).textTheme.titleSmall),
+                onTap: () {
+                  Provider.of<NavProvider>(
+                    context,
+                    listen: false,
+                  ).changePage(Pages.libraryPage);
+                  context.read<SidePanelModel>().pressButton(NavButtons.library);
+                },
+              ),
+            ),
           ),
           SizedBox(height: 50),
-          ListTile(
-            leading: isLightMode ? Icon(Icons.add_sharp, color: Colors.black) : Icon(Icons.add_sharp, color: Colors.white),
-            title: Text('Add Book', style: Theme.of(context).textTheme.titleSmall),
-          ),
         ],
       ),
     );

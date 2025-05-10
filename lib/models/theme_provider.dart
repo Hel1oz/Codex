@@ -15,7 +15,7 @@ Map<String, ThemeMode> availableThemeModes = {
 
 class ThemeProvider with ChangeNotifier {
 
-  ThemeMode _chosenThemeMode = availableThemeModes[_themeBox.get('CHOSEN_THEME_MODE')] ?? ThemeMode.light;  
+  ThemeMode _chosenThemeMode = availableThemeModes[_themeBox.get('CHOSEN_THEME_MODE')] ?? ThemeMode.system;  
 
   ThemeMode get chosenThemeMode => _chosenThemeMode;
 

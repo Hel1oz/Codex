@@ -1,5 +1,6 @@
 //local import
 import 'package:codex/models/navigation_provider.dart';
+import 'package:codex/models/side_panel_model.dart';
 
 //packages
 import 'package:flutter/material.dart';
@@ -20,18 +21,21 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
 
-    final buttonFont = Theme.of(context).textTheme.labelLarge;
     bool isLightMode = Theme.of(context).colorScheme.brightness == Brightness.light;
 
-    return ListTile(
-      leading: isLightMode ? settingsButtonLightmode : settingsButtonDarkmode,
-      title: Text('Settings', style: buttonFont),
-      onTap: () {
-        Provider.of<NavProvider>(
-          context,
-          listen: false,
-        ).changePage(Pages.settingsPage);
-      },
+    return Container(
+      decoration: BoxDecoration(border: Border(top: BorderSide(color: Theme.of(context).colorScheme.secondary))),
+      child: ListTile(
+        leading: isLightMode ? settingsButtonLightmode : settingsButtonDarkmode,
+        title: Text('Settings', style: Theme.of(context).textTheme.titleSmall),
+        onTap: () {
+          Provider.of<NavProvider>(
+            context,
+            listen: false,
+          ).changePage(Pages.settingsPage);
+          context.read<SidePanelModel>().pressButton(NavButtons.settings);
+        },
+      ),
     );
   }
 }

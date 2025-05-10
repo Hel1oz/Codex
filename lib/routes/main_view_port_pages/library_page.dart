@@ -13,31 +13,50 @@ class LibraryPage extends StatelessWidget {
     bool libraryPathNull =
         (context.watch<LibraryModel>().libraryFolderPath == null);
 
-    return SizedBox(
-      child:
-          libraryPathNull
-              ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Library Folder Does not Exist'),
-                    ElevatedButton(
-                      onPressed: () {
-                        context.read<LibraryModel>().addNewBook();
-                      },
-                      child: Text('Create new library folder'),
+    return SizedBox.expand(
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/library.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child:
+            libraryPathNull
+                ? Center(
+                  child: Card(
+                    color: Theme.of(context).colorScheme.primary,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Library Folder Does not Exist',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text(
+                              'Create new library folder',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              )
-              //how should I show each item?
-              //what if I just show the path name as a rudimentary step
-              //TODO: Do the grid children design first before doing anything.
+                  ),
+                )
+                //how should I show each item?
+                //what if I just show the path name as a rudimentary step
+                //TODO: Do the grid children design first before doing anything.
                 //design principles, have each book have a box that shows different background colors
                 //when they are the current book that's being read, it should have a black border,
                 //
-              //might have to makde another model for this.
-              : Center(child: GridView.count(crossAxisCount: 4, children: [],)),
+                //might have to makde another model for this.
+                : Container(),
+      ),
     );
   }
 }
