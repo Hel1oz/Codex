@@ -1,0 +1,8 @@
+todo:
+
+Change the icons to something better,
+and use different fonts, or maybe differnet sizes etc. 
+
+and then use something like an incomplete order that is more free floating 
+and get rid of the button diff color, just make it the same as the background, it will change color when hovered and when clicked
+which after it will maintain a different color.

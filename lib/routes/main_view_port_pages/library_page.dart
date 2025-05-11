@@ -32,11 +32,17 @@ class LibraryPage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'Library Folder Does not Exist',
-                            style: Theme.of(context).textTheme.bodyMedium,
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Text(
+                              'Library Folder Does not Exist',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
                           ),
                           ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).colorScheme.tertiary
+                            ),                            
                             onPressed: () {},
                             child: Text(
                               'Create new library folder',

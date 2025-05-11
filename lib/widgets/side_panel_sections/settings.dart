@@ -21,20 +21,49 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
 
-    bool isLightMode = Theme.of(context).colorScheme.brightness == Brightness.light;
+    bool isLightMode =
+        Theme.of(context).colorScheme.brightness == Brightness.light;
 
-    return Container(
-      decoration: BoxDecoration(border: Border(top: BorderSide(color: Theme.of(context).colorScheme.secondary))),
-      child: ListTile(
-        leading: isLightMode ? settingsButtonLightmode : settingsButtonDarkmode,
-        title: Text('Settings', style: Theme.of(context).textTheme.titleSmall),
-        onTap: () {
-          Provider.of<NavProvider>(
-            context,
-            listen: false,
-          ).changePage(Pages.settingsPage);
-          context.read<SidePanelModel>().pressButton(NavButtons.settings);
-        },
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 400),
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(color: Theme.of(context).colorScheme.secondary),
+        ),
+        boxShadow:
+                    (context.watch<SidePanelModel>().currentFocusButton != NavButtons.settings)
+                        ? []
+                        : [
+                          //dark side
+                          BoxShadow(
+                            color: Color.fromARGB(255, 17, 23, 24),
+                            offset: Offset(3, 3),
+                            blurRadius: 5,
+                            spreadRadius: 1,
+                          ),
+
+                          //light side
+                          // BoxShadow(
+                          //   color: Color(0xFF264447),
+                          //   offset: Offset(-3,-3),
+                          //   blurRadius: 15,
+                          //   spreadRadius: 1,
+                          // )
+                        ],
+        
+      ),
+      child: Material(
+        elevation: (context.watch<SidePanelModel>().currentFocusButton == NavButtons.settings) ? 8.0 : 0,
+        child: ListTile(
+          leading: isLightMode ? settingsButtonLightmode : settingsButtonDarkmode,
+          title: Text('Settings', style: Theme.of(context).textTheme.titleSmall),
+          onTap: () {
+            context.read<NavProvider>().changePage(Pages.settingsPage);
+            context.read<SidePanelModel>().changeSelectedButton(
+              NavButtons.settings,
+            );
+          },
+        ),
       ),
     );
   }

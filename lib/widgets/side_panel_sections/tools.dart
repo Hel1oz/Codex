@@ -21,7 +21,7 @@ class Tools extends StatelessWidget {
     //   )));
     // Column in the navigation widget needed to be wrapped in a SizedBox widget
     return Expanded(child: Consumer<SidePanelModel>(builder: (BuildContext context, SidePanelModel value, Widget? child) { 
-      return value.currentToolsTab;
+      return value.currentTools;
      },));
   }
 }

@@ -16,18 +16,15 @@ Map<NavButtons, Widget> toolsTabsMap = {
 };
 
 class SidePanelModel with ChangeNotifier {
-  
-  Widget _currentToolsTab = SettingsTools();
 
-  Widget get currentToolsTab => _currentToolsTab;
+  NavButtons _selectedButton = NavButtons.reading;
 
-  void switchCurrentTools(NavButtons tab) {
-    _currentToolsTab = toolsTabsMap[tab]!;
+  NavButtons get currentFocusButton => _selectedButton;
+  Widget get currentTools => toolsTabsMap[_selectedButton]!;
+
+  void changeSelectedButton(NavButtons button) {
+    _selectedButton = button;
     notifyListeners();
   }
 
-  void pressButton(NavButtons button) {
-    switchCurrentTools(button);
-    notifyListeners();
-  }
 }
