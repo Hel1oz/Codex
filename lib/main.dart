@@ -17,22 +17,26 @@ import 'package:codex/theme.dart';
 
 void main() async {
 
+  bool _noStartError = true;
+
   WidgetsFlutterBinding.ensureInitialized(); 
   final supportDirectory = await getApplicationSupportDirectory();
 
-  await Hive.initFlutter(supportDirectory.path);
-  await Hive.openBox('AppThemeBox');
-  await Hive.openBox('Library');
+  
+    await Hive.initFlutter(supportDirectory.path);
+    await Hive.openBox('AppThemeBox');
+    await Hive.openBox('Library');
 
-  runApp(MultiProvider(
+    
+    runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => ThemeProvider()),
       ChangeNotifierProvider(create: (context) => NavProvider()),
-      ChangeNotifierProvider(create: (contex) => LibraryModel()),
+      ChangeNotifierProvider(create: (context) => LibraryModel()),
       ChangeNotifierProvider(create: (context) => SettingsPageModel()),
       ChangeNotifierProvider(create: (context) => SidePanelModel()),
     ],
-    child: const Codex()));
+    child: Codex(noStartError: _noStartError)));
 
   final displaySize =
       PlatformDispatcher.instance.views.first.physicalSize /
@@ -47,7 +51,10 @@ void main() async {
 }
 
 class Codex extends StatelessWidget {
-  const Codex({super.key});
+  
+  final bool _noStartError;
+
+  const Codex({super.key, required bool noStartError}) : _noStartError = noStartError;
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +67,25 @@ class Codex extends StatelessWidget {
         body: WindowBorder(
           color: Colors.black,
           width: 1,
-          child: Column(children: [TitleBar(), const MainSection()]),
+          child: Column(children: [TitleBar(), if(_noStartError) MainSection() else ErrorScreen()]),
         ),
       ),
     );
   }
+}
+
+
+class ErrorScreen extends StatelessWidget {
+  const ErrorScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      child: Center(
+        child: Text('An error has occured attempting to start the app')
+      ),
+    );
+  }
+
 }

@@ -1,0 +1,21 @@
+First 
+
+set up the hive box to store values that aren't primitve data: Learn that shit.
+	which means 
+		learn how hive stores non primitive data
+		learn how I can generate the file identifier, the metadata and partial hash.
+		then learn how I'm going to represent the book's viewing data, how I should use it.
+Then create that shit.
+After that you will have to create the code that will make the app scan the available files
+Make the code that will show the files based on the scan,
+Then figure out how you can generate the identifiers, but wait, this part is required for the key,
+how will I know what the key will be like?
+
+Todos in the future:
+	error handling:
+		for hive, 
+
+
+
+Urgent:
+	Create the code to show the books in the folder.

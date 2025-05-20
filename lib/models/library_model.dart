@@ -8,26 +8,48 @@ import 'package:file_picker/file_picker.dart';
 final _libraryBox = Hive.box('Library');
 
 class LibraryModel with ChangeNotifier {
+  //fields
   String? _libraryFolderPath = _libraryBox.get('LIBRARY_FOLDER_PATH');
   List books = _libraryBox.get('BOOKS') ?? [];
   String? _currentlyReading = _libraryBox.get('CURRENTLY_READING');
-
+  late bool _directoryExists;
   String? get libraryFolderPath => _libraryFolderPath;
 
-  void createNewFolder(String folderName) async {
-    final documentPath = await getApplicationDocumentsDirectory();
-    final directoryPath = '${documentPath.path}/$folderName';
-    final directory = Directory(directoryPath);
 
-    if (!await directory.exists()) {
-      await directory.create(recursive: true);
-    }
+  Future<bool> checkDirectory() async {
+    if(_libraryBox.get('LIBRARY_FOLDER_PATH') != null) {
+      final directory = Directory(_libraryFolderPath!);
+      return await directory.exists();
+    } 
+
+    return false;
+  }
+
+  void testFunctionRemove() {}
+   
+  void useExistingFolder({required String path}) async {
+    // final documentPath = await getApplicationDocumentsDirectory();
+    // final directoryPath = '${documentPath.path}/$';
+    final directory = Directory(path);
+
+    // if (!await directory.exists()) {
+    //   await directory.create(recursive: true);
+    // }
 
     _libraryFolderPath = directory.path;
     _libraryBox.put('LIBRARY_FOLDER_PATH', directory.path);
     notifyListeners();
   }
 
+  void createLibraryFolder({required String name, required String path}) {
+    
+  }
+  
+  void remove() {
+    _libraryBox.put('LIBRARY_FOLDER_PATH', null);
+    _libraryFolderPath = null;
+    notifyListeners();
+  }
   void saveToDataBase(String filePath) {
     books.add(filePath);
     _libraryBox.put('BOOKS', books);

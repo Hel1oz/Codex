@@ -1,0 +1,30 @@
+original: #1b2627
+lighter: #264447
+darker: #182021
+
+todo: get the boxshadow colors right [complete]
+todo: write down what I want my book viewer to look like, business logic etc, [ongoing]
+
+Single page and double page,
+zoomable,
+
+when in single page, user can either use their mouse wheel to scroll up or down, and they can use buttons to 
+go to the next or previous page
+
+Single page
+ - scrollable, 
+ - change page by arrow buttons
+
+Double page
+ - scroll changes pages,
+ - arrow buttons changes pages,
+ - zoomable, by using PdfViewer and configuring it to be facing pages. 
+ ? Should I allow free horizontal scroll? Yes, along with the conventional double page,
+ ? should I add the pages number on the title bar or below the book view? Perhaps even on the tools panel
+ - pdf page should have dark mode, where the page turns into a darker color and the text turns
+   into a brighter color,
+ -   
+
+sunk cost fallacy, I have to reflect on that.
+idea: I think I should place the focus button on the title bar as to not obscure the main view,
+idea: I think I shoulda add a way to transition between pages, yes using a ease in opacity transition

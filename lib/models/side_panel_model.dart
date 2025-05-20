@@ -1,6 +1,6 @@
-import 'package:codex/widgets/side_panel_sections/tools_pages.dart/library_tools.dart';
-import 'package:codex/widgets/side_panel_sections/tools_pages.dart/reading_tools.dart';
-import 'package:codex/widgets/side_panel_sections/tools_pages.dart/settings_tools.dart';
+import 'package:codex/widgets/side_panel_parts/tools_pages.dart/library_tools.dart';
+import 'package:codex/widgets/side_panel_parts/tools_pages.dart/reading_tools.dart';
+import 'package:codex/widgets/side_panel_parts/tools_pages.dart/settings_tools.dart';
 import 'package:flutter/material.dart';
 
 enum NavButtons {

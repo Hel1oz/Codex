@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-final buttonFont = GoogleFonts.inter;
 
 ThemeData lightMode = ThemeData(
   splashColor: Colors.transparent,
@@ -17,15 +16,25 @@ ThemeData lightMode = ThemeData(
   textTheme: TextTheme(
     titleSmall: GoogleFonts.roboto(
       color: Colors.black,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w600,
+    ),
+    titleMedium: GoogleFonts.roboto(
+      color: Colors.black,
+      fontWeight: FontWeight.w600,
     ),
     bodyMedium: GoogleFonts.inter(
-      color: Colors.black
-    ),
-    labelLarge: buttonFont(
       color: Colors.black,
+      fontWeight: FontWeight.w600,
     ),
-    bodySmall: GoogleFonts.merriweather(
+    titleLarge: GoogleFonts.roboto(
+      color: Colors.black,
+      fontWeight: FontWeight.w600,
+    ),
+    labelLarge: GoogleFonts.roboto(
+      color: Colors.black,
+      fontWeight: FontWeight.w600,
+    ),
+    bodySmall: GoogleFonts.inter(
       color: Colors.black
     )
   ),
@@ -47,13 +56,21 @@ ThemeData darkMode = ThemeData(
       color: Colors.white,
       fontWeight: FontWeight.normal,
     ),
-    labelLarge: GoogleFonts.merriweather(
+    titleMedium: GoogleFonts.roboto(
+      color: Colors.white,
+      fontWeight: FontWeight.normal,
+    ),
+    titleLarge: GoogleFonts.roboto(
+      color: Colors.white,
+      fontWeight: FontWeight.normal,
+    ),
+    labelLarge: GoogleFonts.roboto(
       color: Colors.white
     ),
     bodyMedium: GoogleFonts.inter(
       color: Colors.white
     ),
-    bodySmall: GoogleFonts.merriweather(
+    bodySmall: GoogleFonts.inter(
       color: Colors.white
     )
   ),

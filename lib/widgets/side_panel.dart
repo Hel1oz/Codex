@@ -1,8 +1,8 @@
 //packages
 
-import 'package:codex/widgets/side_panel_sections/navigation.dart';
-import 'package:codex/widgets/side_panel_sections/settings.dart';
-import 'package:codex/widgets/side_panel_sections/tools.dart';
+import 'package:codex/widgets/side_panel_parts/side_panel_sections/navigation.dart';
+import 'package:codex/widgets/side_panel_parts/side_panel_sections/settings.dart';
+import 'package:codex/widgets/side_panel_parts/side_panel_sections/tools.dart';
 import 'package:flutter/material.dart';
 
 class SidePanel extends StatelessWidget {

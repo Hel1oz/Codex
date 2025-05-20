@@ -2,7 +2,7 @@
 
 import 'package:codex/models/setting_page_model.dart';
 import 'package:codex/models/side_panel_model.dart';
-import 'package:codex/widgets/side_panel_sections/tools_pages.dart/settings_tools.dart';
+import 'package:codex/widgets/side_panel_parts/tools_pages.dart/settings_tools.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

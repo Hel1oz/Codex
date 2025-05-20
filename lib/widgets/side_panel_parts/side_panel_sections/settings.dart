@@ -3,7 +3,7 @@ import 'package:codex/models/navigation_provider.dart';
 import 'package:codex/models/side_panel_model.dart';
 
 //packages
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
@@ -38,17 +38,19 @@ class Settings extends StatelessWidget {
                           BoxShadow(
                             color: Color.fromARGB(255, 17, 23, 24),
                             offset: Offset(3, 3),
-                            blurRadius: 5,
+                            blurRadius: 3,
                             spreadRadius: 1,
+                            // inset: true,
                           ),
 
                           //light side
-                          // BoxShadow(
-                          //   color: Color(0xFF264447),
-                          //   offset: Offset(-3,-3),
-                          //   blurRadius: 15,
-                          //   spreadRadius: 1,
-                          // )
+                          BoxShadow(
+                            color: Color(0xFF264447),
+                            offset: Offset(-3,-3),
+                            blurRadius: 3,
+                            spreadRadius: 1,
+                            // inset: true,
+                          )
                         ],
         
       ),
