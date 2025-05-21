@@ -1,4 +1,5 @@
 //local imports
+import 'package:codex/models/library_model.dart';
 import 'package:codex/models/navigation_provider.dart';
 import 'package:codex/models/side_panel_model.dart';
 
@@ -167,6 +168,9 @@ class Navigation extends StatelessWidget {
           ),
         ),
         // SizedBox(height: 50),
+        ElevatedButton(onPressed: () {
+          context.read<LibraryModel>().remove();
+        }, child: Text('remove'))
       ],
     );
   }

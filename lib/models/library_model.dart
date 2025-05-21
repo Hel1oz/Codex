@@ -1,102 +1,143 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:file_picker/file_picker.dart';
 
-final _libraryBox = Hive.box('Library');
-
+/// Manages the library folder and book data, providing state update via changeNotifir
 class LibraryModel with ChangeNotifier {
-  //fields
-  String? _libraryFolderPath = _libraryBox.get('LIBRARY_FOLDER_PATH');
-  List books = _libraryBox.get('BOOKS') ?? [];
-  String? _currentlyReading = _libraryBox.get('CURRENTLY_READING');
-  late bool _directoryExists;
+  
+  /// constant variables holding the keys for the library hive box
+  static const _libraryFolderKey = 'LIBRARY_FOLDER_PATH';
+  static const _currentlyReadingKey = 'CURRENTLY_READING';
+  static const _libraryFolderName = 'LIBRARY_NAME';
+
+  String? _libraryFolderPath;
+  String? _currentlyReading;
+  late Box _libraryBox;
+
+  ///constructs a [LibraryModel] and initializes it with data from Hive.
+  LibraryModel() {
+    _libraryBox = Hive.box('Library');
+    _libraryFolderPath = _libraryBox.get('LIBRARY_FOLDER_PATH');
+    _currentlyReading = _libraryBox.get('CURRENTLY_READING');
+    print('LibraryModel initialized: _libraryFolderPath = $_libraryFolderPath');
+  }
+
+  ///Getters for the values
   String? get libraryFolderPath => _libraryFolderPath;
+  String? get currentlyReading => _currentlyReading;
 
 
-  Future<bool> checkDirectory() async {
-    if(_libraryBox.get('LIBRARY_FOLDER_PATH') != null) {
+  /// a method that checks if the library folder is registered and that it does in fact exists. 
+  Future<bool> isLibraryAlive() async {
+    if (_libraryFolderPath != null) {
       final directory = Directory(_libraryFolderPath!);
       return await directory.exists();
-    } 
-
+    }
     return false;
   }
 
-  void testFunctionRemove() {}
-   
+  //this method is used for selecting an existing folder to use as the library folder
   void useExistingFolder({required String path}) async {
-    // final documentPath = await getApplicationDocumentsDirectory();
-    // final directoryPath = '${documentPath.path}/$';
     final directory = Directory(path);
-
-    // if (!await directory.exists()) {
-    //   await directory.create(recursive: true);
-    // }
-
     _libraryFolderPath = directory.path;
     _libraryBox.put('LIBRARY_FOLDER_PATH', directory.path);
     notifyListeners();
   }
 
-  void createLibraryFolder({required String name, required String path}) {
-    
+  //this method is used for creating a new folder and using it as the library folder
+  void useNewFolder({required String path, required String folderName}) async {
+  try {
+    final libraryPath = '$path/$folderName';
+    final directory = Directory(libraryPath);
+
+    if (!await directory.exists()) {
+      await directory.create(recursive: true);
+      print('LibraryModel: Created new directory at $libraryPath');
+    }
+
+    _libraryFolderPath = libraryPath;
+    _libraryBox.put('LIBRARY_FOLDER_PATH', libraryPath);
+    print('LibraryModel: Set library folder to $libraryPath');
+    notifyListeners();
+  } catch (e) {
+    print('LibraryModel: Error creating new folder: $e');
   }
-  
+}
+
+  //this method is used for creating a folder in the support directory
+  //ideally this should be used by the user
+  void useSupportDirectory() async {
+  try {
+    final supportDirectory = await getApplicationSupportDirectory();
+    final libraryPath = '${supportDirectory.path}/Library';
+    final directory = Directory(libraryPath);
+
+    if (!await directory.exists()) {
+      await directory.create(recursive: true);
+      print('LibraryModel: Created library directory at $libraryPath');
+    }
+
+    _libraryFolderPath = libraryPath;
+    _libraryBox.put('LIBRARY_FOLDER_PATH', libraryPath);
+    print('LibraryModel: Set library folder to $libraryPath');
+    notifyListeners();
+  } catch (e) {
+    print('LibraryModel: Error setting support directory: $e');
+  }
+}
+
+/// this is just a test method that removes turns the libraryp path into null so that I can test if the 
+/// other methods for creating  a new library folder works
   void remove() {
-    _libraryBox.put('LIBRARY_FOLDER_PATH', null);
+    _libraryBox.put(_libraryFolderKey, null);
     _libraryFolderPath = null;
     notifyListeners();
   }
-  void saveToDataBase(String filePath) {
-    books.add(filePath);
-    _libraryBox.put('BOOKS', books);
-  }
 
-  void addNewBook() async {
+
+  /// This method gathers the names of the books, I tried doing thumbnails but I ran into some 
+  /// problem using pdfx
+  Future<List<String>> getBookNames() async {
+    print('LibraryModel: _libraryFolderPath = $_libraryFolderPath');
+    //I don't think this check would be necessary since if the library path would be null
+    //it wouldn't reach the library view
     if (_libraryFolderPath == null) {
-      return;
+      print('LibraryModel: _libraryFolderPath is null, returning empty list');
+      return [];
     }
 
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf', 'epub', 'mobi'],
-    ); //pick a file, place it in result
+    List<String> filePaths = [];
+    final Directory libraryFolder = Directory(_libraryFolderPath!);
 
-    if (result != null && result.files.single.path != null) {
-      //check if result is not actually empty, and the a single file has actually been picked
-
-      //create a handle for that file.
-      File sourceFile = File(result.files.single.path!);
-
-      String fileName = result.files.single.name;
-      String destinationPath = '$_libraryFolderPath/$fileName';
-
-      try {
-        await sourceFile.copy(destinationPath);
-
-        //TODO: Create the function to add the file into the list stored in hive.
-        saveToDataBase(destinationPath);
-        notifyListeners();
-      } catch (e) {
-        print('error copying file to library folder: $e');
+    try {
+      print('LibraryModel: Listing files in directory: $_libraryFolderPath');
+      await for (var entity in libraryFolder.list(recursive: false)) {
+        if (entity.path.toLowerCase().endsWith('.pdf')) {
+          filePaths.add(entity.path);
+          print('LibraryModel: Found PDF: ${entity.path}');
+        }
       }
+      print('LibraryModel: Total PDFs found: ${filePaths.length}');
+    } catch (e) {
+      print('LibraryModel: Error listing directory: $e');
+      return [];
     }
-    //copy that file into the folder check to make sure there is in fact a folder,
 
-    //pick a file, copy it to the folder check if the folder actually exists, and then place the path in the
-    //hive list.
+    if (filePaths.isEmpty) {
+      print('LibraryModel: No PDF files found, returning empty list');
+      return [];
+    }
+
+    // Extract book names from file paths
+    List<String> bookNames =
+        filePaths.map((path) {
+          final fileName =
+              path.split(r'\').last; // Get the filename from the path
+          return fileName.replaceAll('.pdf', ''); // Remove the .pdf extension
+        }).toList();
+
+    print('LibraryModel: Total book names: ${bookNames.length}');
+    return bookNames;
   }
-  //let me assume the folder exists,
-  // I'll just show the books for now.
-
-  //I could store it in a list in the hive box
-  //hive box KEYS:
-  //currentlyReading
-  //List of all available books
-  //library folder file path
-  //
-  //categories is another thing but I'll worry about that later.
 }

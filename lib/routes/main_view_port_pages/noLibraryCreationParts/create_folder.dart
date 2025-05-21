@@ -19,7 +19,7 @@ class CreateFolder extends StatelessWidget {
 
         FolderNameInput(folderNameController: _folderNameController),
         
-        CreateButton(pathInputController: _pathInputController),
+        CreateButton(pathInputController: _pathInputController, folderNameController: _folderNameController),
       ],
     );
   }
@@ -29,10 +29,11 @@ class CreateButton extends StatelessWidget {
   const CreateButton({
     super.key,
     required TextEditingController pathInputController,
-  }) : _pathInputController = pathInputController;
+    required TextEditingController folderNameController,
+  }) : _pathInputController = pathInputController, _folderNameController = folderNameController;
 
   final TextEditingController _pathInputController;
-
+  final TextEditingController _folderNameController;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -40,9 +41,7 @@ class CreateButton extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           onTap: () {
-            context.read<LibraryModel>().useExistingFolder(
-              path: _pathInputController.text,
-            );
+            context.read<LibraryModel>().useNewFolder(path: _pathInputController.text, folderName: _folderNameController.text);
           },
           child: Container(
             decoration: BoxDecoration(

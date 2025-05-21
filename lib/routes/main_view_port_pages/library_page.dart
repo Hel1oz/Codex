@@ -1,61 +1,57 @@
 //packages
 import 'package:codex/models/library_model.dart';
-import 'package:codex/routes/main_view_port_pages/create_folder.dart';
+import 'package:codex/routes/main_view_port_pages/noLibraryCreationParts/create_folder.dart';
 import 'package:codex/routes/main_view_port_pages/library_view.dart';
-import 'package:codex/routes/main_view_port_pages/select_folder.dart';
+import 'package:codex/routes/main_view_port_pages/noLibraryCreationParts/select_folder.dart';
+import 'package:codex/routes/main_view_port_pages/noLibraryCreationParts/user_support_directory.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-
 
 class LibraryPage extends StatelessWidget {
   const LibraryPage({super.key});
 
-
-
-@override
+  @override
   Widget build(BuildContext context) {
-    
-
     return SizedBox.expand(
       child: Container(
         color: Theme.of(context).colorScheme.surface,
-        child: FutureBuilder(future: context.watch<LibraryModel>().checkDirectory(), builder: (context, snapShot) {
-          if (snapShot.connectionState == ConnectionState.done) {
-            
-            if(snapShot.data as bool == true && context.read<LibraryModel>().libraryFolderPath != null) {
-              return LibraryView();
-            } else {
-              return NoLibraryFound(); 
+        child: FutureBuilder(
+          future: context.watch<LibraryModel>().isLibraryAlive(),
+          builder: (context, snapShot) {
+            if (snapShot.connectionState == ConnectionState.done) {
+              if (snapShot.data as bool == true &&
+                  context.read<LibraryModel>().libraryFolderPath != null) {
+                return LibraryView();
+              } else {
+                return NoLibraryFound();
+              }
             }
-            
-          }
 
-          return Center(child: CircularProgressIndicator());
-        })
+            return Center(child: CircularProgressIndicator());
+          },
+        ),
       ),
     );
   }
 }
 
- enum libraryCreationMode {
-    selectFolder,
-    createFolder,
-  }
+enum LibraryCreationMode { selectFolder, createFolder, supportFolder }
 
 class NoLibraryFound extends StatefulWidget {
-  
-  NoLibraryFound({super.key});
-
-  
+  const NoLibraryFound({super.key});
 
   @override
   State<NoLibraryFound> createState() => _NoLibraryFoundState();
 }
 
 class _NoLibraryFoundState extends State<NoLibraryFound> {
+  LibraryCreationMode _currentMode = LibraryCreationMode.selectFolder;
 
- libraryCreationMode _currentMode = libraryCreationMode.selectFolder;
+  void changeCurrentMode(LibraryCreationMode libraryCreationMode) {
+    setState(() {
+      _currentMode = libraryCreationMode;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,59 +70,73 @@ class _NoLibraryFoundState extends State<NoLibraryFound> {
         ),
         SizedBox(height: 40),
 
-        //Row for the 2 buttons 
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        //Row for the 3 buttons
+        OverflowBar(
+          spacing: 8,
+          overflowAlignment: OverflowBarAlignment.center,
           children: [
-              Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                onTap: () { setState(() {
-                  _currentMode = libraryCreationMode.selectFolder;
-                });},
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Theme.of(context).colorScheme.secondary)
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      'Select folder',
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                  ),
-                ),
-              ),
+            CustomButton(
+              changeMode: changeCurrentMode,
+              libraryCreationMode: LibraryCreationMode.supportFolder,
+              name: 'Use Support Directory',
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                onTap: () {setState(() {
-                  _currentMode = libraryCreationMode.createFolder;
-                });},
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Theme.of(context).colorScheme.secondary)
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      'Create folder',
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                  ),
-                ),
-              ),
+            CustomButton(
+              changeMode: changeCurrentMode,
+              libraryCreationMode: LibraryCreationMode.selectFolder,
+              name: 'Use Existing Folder',
+            ),
+            CustomButton(
+              changeMode: changeCurrentMode,
+              libraryCreationMode: LibraryCreationMode.createFolder,
+              name: 'Create New Folder',
             ),
           ],
         ),
         
-        (_currentMode == libraryCreationMode.selectFolder) ? 
-        SelectFolder() : CreateFolder()  
-        //Text Field
+        switch (_currentMode) {
+          LibraryCreationMode.supportFolder => UserSupportDirectory(),
+          LibraryCreationMode.selectFolder => SelectFolder(),
+          LibraryCreationMode.createFolder =>  CreateFolder()
+        }
       ],
+    );
+  }
+}
+
+class CustomButton extends StatelessWidget {
+  final void Function(LibraryCreationMode)
+  changeMode; // Updated to match the signature
+  final LibraryCreationMode libraryCreationMode;
+  final String name;
+
+  const CustomButton({
+    super.key,
+    required this.changeMode,
+    required this.libraryCreationMode,
+    required this.name,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: InkWell(
+        onTap: () => changeMode(libraryCreationMode),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Theme.of(context).colorScheme.secondary),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              name,
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
