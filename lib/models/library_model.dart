@@ -9,7 +9,7 @@ class LibraryModel with ChangeNotifier {
   /// constant variables holding the keys for the library hive box
   static const _libraryFolderKey = 'LIBRARY_FOLDER_PATH';
   static const _currentlyReadingKey = 'CURRENTLY_READING';
-  static const _libraryFolderName = 'LIBRARY_NAME';
+  static const _libraryBoxNameKey = 'Library';
 
   String? _libraryFolderPath;
   String? _currentlyReading;
@@ -17,16 +17,39 @@ class LibraryModel with ChangeNotifier {
 
   ///constructs a [LibraryModel] and initializes it with data from Hive.
   LibraryModel() {
-    _libraryBox = Hive.box('Library');
-    _libraryFolderPath = _libraryBox.get('LIBRARY_FOLDER_PATH');
-    _currentlyReading = _libraryBox.get('CURRENTLY_READING');
+    _libraryBox = Hive.box(_libraryBoxNameKey);
+    _libraryFolderPath = _libraryBox.get(_libraryFolderKey);
+    _currentlyReading = _libraryBox.get(_currentlyReadingKey);
+
+    //check if the library directory actually exist, if not then make the variables null
+    if (_libraryFolderPath != null) {
+      final directory = Directory(_libraryFolderPath!);
+      if (!directory.existsSync()) {
+        _libraryFolderPath = null;
+        _libraryBox.put(_libraryFolderKey, null);
+      }
+    }
+    //check if the currently reading file actually exists, if not, then make the variables null
+    if (_currentlyReading != null) {
+      final file = File(_currentlyReading!);
+      if (!file.existsSync()) {
+        _currentlyReading = null;
+        _libraryBox.put(_currentlyReadingKey, null);
+      }
+    }
     print('LibraryModel initialized: _libraryFolderPath = $_libraryFolderPath');
+  
   }
+
 
   ///Getters for the values
   String? get libraryFolderPath => _libraryFolderPath;
   String? get currentlyReading => _currentlyReading;
 
+  void setCurrentlyReading(String bookName) {
+    _currentlyReading = '$_libraryFolderPath/$bookName';
+    notifyListeners();
+  }
 
   /// a method that checks if the library folder is registered and that it does in fact exists. 
   Future<bool> isLibraryAlive() async {
@@ -134,10 +157,35 @@ class LibraryModel with ChangeNotifier {
         filePaths.map((path) {
           final fileName =
               path.split(r'\').last; // Get the filename from the path
-          return fileName.replaceAll('.pdf', ''); // Remove the .pdf extension
+          return fileName; // Remove the .pdf extension
         }).toList();
 
     print('LibraryModel: Total book names: ${bookNames.length}');
     return bookNames;
+  }
+
+  ///!Add book method, that selects a file and copies it into the library folder, 
+  ///?Error handling, let's see. What if the library folder doesn't exist? Well since this button will be available
+  ///after the  user has chosen a library folder then that shouldn't be too much of a risk, but
+  ///? what if the folder gets erased or something after the user has chosen a folder and before they add a book,
+  ///I could just go with code dthat checks if it does exist, I could just use the is alive method
+  ///
+  
+  void addBook(String filePath) async {
+    ///? Was? well it checks if the library is online, if it is
+    ///? Then it makes a file object referencing the file, it extracts its name, 
+    ///? creates a destination path, 
+    ///? and copies that file into the destination path.
+    if (!await isLibraryAlive()) {
+      print('Library Folder is not online');
+      return; 
+    } else {
+      final file = File(filePath);
+      final fileName = filePath.split(Platform.pathSeparator).last;
+      final destinationPath = '$_libraryFolderPath${Platform.pathSeparator}$fileName';
+      file.copySync(destinationPath);
+      notifyListeners();
+    }
+
   }
 }

@@ -1,4 +1,5 @@
 import 'package:codex/models/library_model.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,19 @@ class LibraryTools extends StatelessWidget {
             'Add Book',
             style: Theme.of(context).textTheme.titleSmall,
           ),
+          ///!Uses file picker directly and uses the result as the argument for the addBook method.
+          onTap: () async {
+            FilePickerResult? result = await FilePicker.platform.pickFiles(
+              allowMultiple: false,
+              type: FileType.custom,
+              allowedExtensions: ['pdf'],
+            ); 
+
+            if (result != null && result.files.single.path != null) {
+              ///TODO: Figure out what this means
+              context.read<LibraryModel>().addBook(result.files.first.path!);
+            };
+          },
         ),
       ], 
     ) : SizedBox.expand();

@@ -1,8 +1,10 @@
 //packages
 import 'dart:math';
 
+import 'package:codex/models/library_model.dart';
 import 'package:flutter/material.dart';
 import 'package:pdfrx/pdfrx.dart';
+import 'package:provider/provider.dart';
 
 class ReadingPage extends StatelessWidget {
   const ReadingPage({super.key});
@@ -19,7 +21,7 @@ class ReadingPage extends StatelessWidget {
         decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
         //colorFiltered widget flips the colors, if you implement this, make sure to whiten the background.
         child: PdfViewer.file(
-          'C:/Users/red/Documents/CodexLibrary/Things hidden since the foundation of the world.pdf',
+          context.watch<LibraryModel>().currentlyReading!,
           initialPageNumber: 1,
           params: PdfViewerParams(
             enableTextSelection: true,

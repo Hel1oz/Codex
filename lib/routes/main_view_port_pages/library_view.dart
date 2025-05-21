@@ -38,17 +38,22 @@ class LibraryView extends StatelessWidget {
             itemCount: bookNames.length,
             itemBuilder: (context, index) {
               print('LibraryView: Building item $index with book name: ${bookNames[index]}');
-              return Card(
-                elevation: 2,
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      bookNames[index],
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 14),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
+              return InkWell(
+                onTap: () {
+                  context.read<LibraryModel>().setCurrentlyReading(bookNames[index]);
+                },
+                child: Card(
+                  elevation: 2,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        bookNames[index],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 14),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                      ),
                     ),
                   ),
                 ),

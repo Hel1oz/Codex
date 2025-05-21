@@ -15,21 +15,7 @@ class LibraryPage extends StatelessWidget {
     return SizedBox.expand(
       child: Container(
         color: Theme.of(context).colorScheme.surface,
-        child: FutureBuilder(
-          future: context.watch<LibraryModel>().isLibraryAlive(),
-          builder: (context, snapShot) {
-            if (snapShot.connectionState == ConnectionState.done) {
-              if (snapShot.data as bool == true &&
-                  context.read<LibraryModel>().libraryFolderPath != null) {
-                return LibraryView();
-              } else {
-                return NoLibraryFound();
-              }
-            }
-
-            return Center(child: CircularProgressIndicator());
-          },
-        ),
+        child: context.watch<LibraryModel>().libraryFolderPath == null ? NoLibraryFound() : LibraryView() 
       ),
     );
   }
@@ -83,7 +69,7 @@ class _NoLibraryFoundState extends State<NoLibraryFound> {
             CustomButton(
               changeMode: changeCurrentMode,
               libraryCreationMode: LibraryCreationMode.selectFolder,
-              name: 'Use Existing Folder',
+              name: 'Use Existing Directory',
             ),
             CustomButton(
               changeMode: changeCurrentMode,
