@@ -2,54 +2,46 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:path_provider/path_provider.dart';
-
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 /// Manages the library folder and book data, providing state update via changeNotifir
 class LibraryModel with ChangeNotifier {
   
   /// constant variables holding the keys for the library hive box
   static const _libraryFolderKey = 'LIBRARY_FOLDER_PATH';
-  static const _currentlyReadingKey = 'CURRENTLY_READING';
+  // static const _currentlyReadingKey = 'CURRENTLY_READING';
   static const _libraryBoxNameKey = 'Library';
 
   String? _libraryFolderPath;
-  String? _currentlyReading;
+  // String? _currentlyReading;
   late Box _libraryBox;
 
   ///constructs a [LibraryModel] and initializes it with data from Hive.
   LibraryModel() {
     _libraryBox = Hive.box(_libraryBoxNameKey);
     _libraryFolderPath = _libraryBox.get(_libraryFolderKey);
-    _currentlyReading = _libraryBox.get(_currentlyReadingKey);
+
 
     //check if the library directory actually exist, if not then make the variables null
-    if (_libraryFolderPath != null) {
-      final directory = Directory(_libraryFolderPath!);
-      if (!directory.existsSync()) {
-        _libraryFolderPath = null;
-        _libraryBox.put(_libraryFolderKey, null);
-      }
-    }
-    //check if the currently reading file actually exists, if not, then make the variables null
-    if (_currentlyReading != null) {
-      final file = File(_currentlyReading!);
-      if (!file.existsSync()) {
-        _currentlyReading = null;
-        _libraryBox.put(_currentlyReadingKey, null);
-      }
-    }
-    print('LibraryModel initialized: _libraryFolderPath = $_libraryFolderPath');
-  
+    // if (_libraryFolderPath != null) {
+    //   final directory = Directory(_libraryFolderPath!);
+    //   if (!directory.existsSync()) {
+    //     _libraryFolderPath = null;
+    //     _libraryBox.put(_libraryFolderKey, null);
+    //   }
+    // }
+    
   }
 
 
   ///Getters for the values
   String? get libraryFolderPath => _libraryFolderPath;
-  String? get currentlyReading => _currentlyReading;
+  // String? get currentlyReading => _currentlyReading;
 
-  void setCurrentlyReading(String bookName) {
-    _currentlyReading = '$_libraryFolderPath/$bookName';
-    notifyListeners();
-  }
+  // void setCurrentlyReading(String bookName) {
+  //   _currentlyReading = '$_libraryFolderPath/$bookName';
+  //   notifyListeners();
+  // }
 
   /// a method that checks if the library folder is registered and that it does in fact exists. 
   Future<bool> isLibraryAlive() async {
@@ -64,7 +56,7 @@ class LibraryModel with ChangeNotifier {
   void useExistingFolder({required String path}) async {
     final directory = Directory(path);
     _libraryFolderPath = directory.path;
-    _libraryBox.put('LIBRARY_FOLDER_PATH', directory.path);
+    _libraryBox.put(_libraryFolderKey, directory.path);
     notifyListeners();
   }
 
@@ -188,4 +180,25 @@ class LibraryModel with ChangeNotifier {
     }
 
   }
+}
+
+
+///? My plan was to use a unique identifier for a book using a combination of metadata and partial hashing 
+///? I think I can work it out by having an async function that does the unique identifer and checks it up on the
+///? data base and then allows the viewer to make it. 
+///
+///
+///
+
+///? Shoul I separate them to 2 objects? 1 key class and 1 data class? Or should I just use a single class?
+///? I'll just use 2 different classes for simplicity sake.
+class BookIdentifier {
+
+  const BookIdentifier();
+
+}
+
+class BookData {
+  
+  const BookData();
 }

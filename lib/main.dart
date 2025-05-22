@@ -1,5 +1,6 @@
 //packages
 import 'dart:ui';
+import 'package:codex/models/book_model.dart';
 import 'package:codex/models/library_model.dart';
 import 'package:codex/models/setting_page_model.dart';
 import 'package:codex/models/side_panel_model.dart';
@@ -35,6 +36,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => LibraryModel()),
       ChangeNotifierProvider(create: (context) => SettingsPageModel()),
       ChangeNotifierProvider(create: (context) => SidePanelModel()),
+      ChangeNotifierProvider(create: (context) => BookModel())
     ],
     child: Codex(noStartError: _noStartError)));
 

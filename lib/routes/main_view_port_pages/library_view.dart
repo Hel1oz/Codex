@@ -1,3 +1,4 @@
+import 'package:codex/models/book_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:codex/models/library_model.dart';
@@ -40,7 +41,7 @@ class LibraryView extends StatelessWidget {
               print('LibraryView: Building item $index with book name: ${bookNames[index]}');
               return InkWell(
                 onTap: () {
-                  context.read<LibraryModel>().setCurrentlyReading(bookNames[index]);
+                  context.read<BookModel>().setCurrentlyReading(bookNames[index]);
                 },
                 child: Card(
                   elevation: 2,
